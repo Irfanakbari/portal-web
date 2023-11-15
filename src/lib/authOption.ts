@@ -172,7 +172,7 @@ export const authOptions: AuthOptions = {
   },
   pages: {
     signIn: '/login',
-    error: '/login',
+    error: '/block',
     // signOut: 'http://localhost:8080/realms/master/protocol/openid-connect/logout'
   },
   cookies: cookieOption

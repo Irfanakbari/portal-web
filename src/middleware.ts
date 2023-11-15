@@ -6,13 +6,13 @@ export default withAuth(
   function middleware(req: NextRequestWithAuth){
     const { token } = req.nextauth;
 
-    if (!token) {
-      return new NextResponse("You are not authorized!");
-    }
+      if (!token || !token.user) {
+          return NextResponse.rewrite(new URL('/block', req.url))
+      }
   },
   {
     cookies: authOptions.cookies,
     pages: authOptions.pages
   }
 );
-export const config = { matcher: ['/portal', "/((?!register|api|login|$).*)"]}
+export const config = { matcher: ['/', "/((?!register|api|login|$).*)"]}
