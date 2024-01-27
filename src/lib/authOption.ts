@@ -52,7 +52,7 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
-      domain: 'localhost'
+      // domain: 'localhost'
     }
   },
   csrfToken: {
@@ -61,7 +61,7 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
-      domain: 'localhost'
+      // domain: 'localhost'
     }
   },
   callbackUrl: {
@@ -70,7 +70,7 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
-      domain: 'localhost'
+      // domain: 'localhost'
     }
   },
   pkceCodeVerifier: {
@@ -80,7 +80,7 @@ export const cookieOption: CookiesOptions = {
       path: '/',
       secure: false,
       maxAge: 900,
-      domain: 'localhost'
+      // domain: 'localhost'
     }
   },
   state: {
@@ -90,7 +90,7 @@ export const cookieOption: CookiesOptions = {
       path: '/',
       secure: false,
       maxAge: 900,
-      domain: 'localhost'
+      // domain: 'localhost'
     }
   },
   nonce: {
@@ -99,7 +99,7 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
-      domain: 'localhost'
+      // domain: 'localhost'
     }
   }
 }
