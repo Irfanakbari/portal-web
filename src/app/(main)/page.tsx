@@ -13,7 +13,6 @@ import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
 import { DeviceInfo } from "@/interface/sessiondata";
 import Loading from "@/app/(main)/loading";
 import Image from "next/image";
-import {fetchUserAccount} from "@/lib/AccountApiService";
 
 async function keycloakSessionLogOut() {
   try {
@@ -67,74 +66,31 @@ const Portal= () => {
   })
 
   const [ipAddress, setIPAddress] = useState('-')
-  const [sessionData, setSessionData] = useState<{currentSession: DeviceInfo, allSession: DeviceInfo[]}>({
-    currentSession: {},
-    allSession:[]
-  })
 
-
-  const fetchUserAccount = async (): Promise<UserAccount> => {
-    try {
-      const response = await axiosAuth.get(`${API_BASE_URL}/realms/${REALM}/account/`);
-
-      return response.data
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const fetchUserApplication = async (): Promise<UserAccountApplication[]> => {
-    try {
-      const response = await axiosAuth.get(`${API_BASE_URL}/realms/${REALM}/account/applications`);
-
-      return response.data
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const fetchUserSessions = async (): Promise<UserAccountSessionDevice[]> => {
-    try {
-      const response = await axiosAuth.get(`${API_BASE_URL}/realms/${REALM}/account/sessions/devices`);
-
-      return response.data
-    } catch (error) {
-      throw error;
-    }
-  };
 
 
   useEffect(() => {
-    fetchAccount();
     fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
       .then(data => setIPAddress(data.ip))
-    // axiosAuth.get(`${process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL}/realms/vuteq-indonesia/account/sessions/devices`).then(response => {
-    //     setSessionData({
-    //       allSession: response.data,
-    //       currentSession: response.data.find((r: any)=> r.current === true)
-    //     });
-    //   });
+
+    axiosAuth.get(`${API_BASE_URL}/realms/${REALM}/account/`).then(r => setUserAccount(r.data));
+    axiosAuth.get(`${API_BASE_URL}/realms/${REALM}/account/applications`).then(r=> setUserApp(r.data));
+    axiosAuth.get(`${API_BASE_URL}/realms/${REALM}/account/sessions/devices`).then(r=>{
+      setUserSession({
+        currentSession: r.data.find((r: UserAccountSessionDevice)=> r.current === true) ?? {
+          os: "",
+          osVersion: "",
+          device: "",
+          lastAccess: 0,
+          sessions: [],
+          mobile: false
+        },
+        allSession: r.data
+      })
+    });
   }, []);
 
-  async function fetchAccount() {
-    const userData = await fetchUserAccount();
-    setUserAccount(userData)
-    const appData = await fetchUserApplication();
-    setUserApp(appData)
-    const userSession = await fetchUserSessions();
-    setUserSession({
-        currentSession: userSession.find((r: UserAccountSessionDevice)=> r.current === true) ?? {
-            os: "",
-            osVersion: "",
-            device: "",
-            lastAccess: 0,
-            sessions: [],
-            mobile: false
-        },
-        allSession: userSession
-    })
-  }
 
   return (
     <Suspense fallback={<Loading />}>
