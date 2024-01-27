@@ -45,13 +45,6 @@ const refreshAccessToken = async (token: JWT) => {
   }
 };
 
-function decodeJwt(token: string) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  return JSON.parse(Buffer.from(base64, 'base64').toString('utf-8'));
-}
-
-
 export const cookieOption: CookiesOptions = {
   sessionToken: {
     name: `app-vuteq.session-token`, // Make sure to add conditional logic so that the name of the cookie does not include `__Secure-` on localhost
@@ -59,6 +52,7 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
+      domain: 'localhost'
     }
   },
   csrfToken: {
@@ -67,6 +61,7 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
+      domain: 'localhost'
     }
   },
   callbackUrl: {
@@ -75,6 +70,7 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
+      domain: 'localhost'
     }
   },
   pkceCodeVerifier: {
@@ -83,7 +79,8 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
-      maxAge: 900
+      maxAge: 900,
+      domain: 'localhost'
     }
   },
   state: {
@@ -92,7 +89,8 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
-      maxAge: 900
+      maxAge: 900,
+      domain: 'localhost'
     }
   },
   nonce: {
@@ -101,10 +99,15 @@ export const cookieOption: CookiesOptions = {
       httpOnly: true,
       path: '/',
       secure: false,
+      domain: 'localhost'
     }
   }
 }
-
+function decodeJwt(token: string) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  return JSON.parse(Buffer.from(base64, 'base64').toString('utf-8'));
+}
 export const authOptions: AuthOptions = {
   providers: [
     KeycloakProvider({
@@ -159,6 +162,8 @@ export const authOptions: AuthOptions = {
         token.refreshTokenExpired =
             Date.now() + (account.refresh_expires_in - 15) * 1000;
         token.user = user;
+        const decodedToken = decodeJwt(account.access_token)
+        token.user.roles = decodedToken['resource_access']['vuteq-internal']['roles']
         return token;
       }
 

@@ -31,7 +31,7 @@ declare module "next-auth" {
     family_name: string;
     email: string;
     id: string;
-    // roles: string[];
+    roles: string[];
   }
 
   interface Account{
