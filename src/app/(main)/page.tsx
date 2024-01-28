@@ -98,7 +98,7 @@ const Portal= () => {
         <Header className={`w-full flex justify-center border-2 border-gray-300 fixed top-0`} style={{ background: "#fff", padding: "0 16px" }}>
           <div className={`w-full lg:w-2/3 flex items-center justify-between`}>
             <div style={{ display: "flex", alignItems: "center" , gap: '10px'}}>
-              <Image src="https://www.vuteq.co.id/wp-content/uploads/2021/10/cropped-VUTEQ-Logo-removebg-preview-removebg-preview.png" alt="Logo" width={100} height={50} />
+              <Image src="/images/img.png" alt="Logo" width={100} height={50} />
               <h1 className={`hidden md:block text-xl font-semibold`}>Application Portal</h1>
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
