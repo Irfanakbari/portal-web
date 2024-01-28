@@ -51,8 +51,8 @@ export const cookieOption: CookiesOptions = {
     options: {
       httpOnly: true,
       path: '/',
-      secure: false,
-      // domain: 'localhost'
+      secure: true,
+      domain: 'vuteq.co.id'
     }
   },
   csrfToken: {
@@ -60,8 +60,8 @@ export const cookieOption: CookiesOptions = {
     options: {
       httpOnly: true,
       path: '/',
-      secure: false,
-      // domain: 'localhost'
+      secure: true,
+      domain: 'vuteq.co.id'
     }
   },
   callbackUrl: {
@@ -69,8 +69,8 @@ export const cookieOption: CookiesOptions = {
     options: {
       httpOnly: true,
       path: '/',
-      secure: false,
-      // domain: 'localhost'
+      secure: true,
+      domain: 'vuteq.co.id'
     }
   },
   pkceCodeVerifier: {
@@ -78,7 +78,8 @@ export const cookieOption: CookiesOptions = {
     options: {
       httpOnly: true,
       path: '/',
-      secure: false,
+      secure: true,
+      domain: 'vuteq.co.id',
       maxAge: 900,
       // domain: 'localhost'
     }
@@ -88,7 +89,8 @@ export const cookieOption: CookiesOptions = {
     options: {
       httpOnly: true,
       path: '/',
-      secure: false,
+      secure: true,
+      domain: 'vuteq.co.id',
       maxAge: 900,
       // domain: 'localhost'
     }
@@ -98,8 +100,8 @@ export const cookieOption: CookiesOptions = {
     options: {
       httpOnly: true,
       path: '/',
-      secure: false,
-      // domain: 'localhost'
+      secure: true,
+      domain: 'vuteq.co.id'
     }
   }
 }
@@ -178,7 +180,6 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
     error: '/block',
-    // signOut: 'http://localhost:8080/realms/master/protocol/openid-connect/logout'
   },
   cookies: cookieOption
 }
